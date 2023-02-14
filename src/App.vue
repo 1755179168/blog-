@@ -20,7 +20,7 @@ export default {
         return 1000;
       },
       set(val) {
-        console.log(111);
+        console.log(222);
 
         return val;
       },
