@@ -1,0 +1,29 @@
+div.pager-container {
+  width: 100%;
+  height: 35px;
+  display: flex;
+  cursor: pointer;
+  line-height: 35px;
+  font-size: 14px;
+  background: #fff;
+  justify-content: center;
+}
+div.pager-container span {
+  text-align: center;
+  margin: 0 5px;
+  background: #eee;
+  border-radius: 8px;
+  padding: 0 5px;
+}
+div.pager-container span:hover {
+  color: #6b9eee;
+}
+div.pager-container span.active {
+  background: #4e6ef2;
+  color: #eee;
+}
+div.pager-container span.prop {
+  width: 30px;
+  height: 35px;
+  padding: 0;
+}
