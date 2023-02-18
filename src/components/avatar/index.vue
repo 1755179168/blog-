@@ -1,6 +1,6 @@
 <template>
   <div
-    class="avatar"
+    class="avatar-container"
     :style="{
       width: width_avatar + 'px',
       height: height_avatar + 'px',
@@ -36,7 +36,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-div.avatar {
+div.avatar-container {
   border-radius: 50%;
   overflow: hidden;
   img {

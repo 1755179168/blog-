@@ -24,5 +24,8 @@ export default {
 </script>
 
 <style scoped>
+.icon-container {
+  font-size: inherit;
+}
 @import url("https://at.alicdn.com/t/c/font_2787040_7sv10g559mu.css");
 </style>
