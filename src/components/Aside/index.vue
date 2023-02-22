@@ -13,6 +13,7 @@
       <MenuItem
         :iconType="'home'"
         :text="'首页'"
+        class="active"
       />
       <MenuItem
         :iconType="'blog'"
@@ -32,18 +33,24 @@
       />
     </div>
     <div class="info">
-      <MenuItem
-        :iconType="'github'"
-        :text="'bangbangji-Edu'"
-      />
-      <MenuItem
-        :iconType="'email'"
-        :text="'1755179168@qq.com'"
-      />
-      <MenuItem
-        :iconType="'qq'"
-        :text="'1755179168'"
-      />
+      <a :href="'https://github.com/1755179168'">
+        <MenuItem
+          :iconType="'github'"
+          :text="'bangbangji-Edu'"
+        />
+      </a>
+      <a :href="'mailto:'+'132123@qq.com'">
+        <MenuItem
+          :iconType="'email'"
+          :text="'1755179168@qq.com'"
+        />
+      </a>
+      <a :href="'tencent://message/?uni='+'123123123'">
+        <MenuItem
+          :iconType="'qq'"
+          :text="'1755179168'"
+        />
+      </a>
       <MenuItem
         :iconType="'weixin'"
         :text="'18280632051'"
@@ -77,7 +84,8 @@ export default {
   align-items: center;
 }
 .nickname {
-  color: #fff;
+  color: @Hword;
+
   font-size: 28px;
   margin: 25px 0;
 }
@@ -92,9 +100,21 @@ div.info {
   margin: 30px 0;
 }
 div.info div.menu-item-container {
-  padding-left: 30px;
+  padding-left: 20px;
+  margin-right: 10px;
+}
+div.info div.menu-item-container:hover {
+  background-color: transparent;
+  color: @primary;
 }
 div.register {
   font-size: 14px;
+  color: @words;
+}
+div.menu div.menu-item-container.active {
+  background-color: lighten(@dark, 4.7%);
+}
+div.menu div.menu-item-container {
+  margin: 5px 0;
 }
 </style>

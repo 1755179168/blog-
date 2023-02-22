@@ -23,9 +23,10 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="less">
+@import "~@/style/var.less";
 .menu-item-container:hover {
-  background-color: #5a5555;
+  background-color: lighten(@dark, 4.7%);
   /* color: #ccc; */
 }
 .menu-item-container {
