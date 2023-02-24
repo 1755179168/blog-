@@ -1,7 +1,7 @@
 <template>
   <div class="aside-container">
     <Avatar
-      :url="'http://47.93.37.77/asset_test/noBig1.jpg'"
+      :url="'http://47.93.37.77/asset_test/big1.jpg'"
       :width_avatar="200"
       :height_avatar="200"
     />
@@ -10,27 +10,52 @@
 
     <h2 class="nickname">abdsfsdaf</h2>
     <div class="menu">
-      <MenuItem
-        :iconType="'home'"
-        :text="'首页'"
-        class="active"
-      />
-      <MenuItem
-        :iconType="'blog'"
-        :text="'文章'"
-      />
-      <MenuItem
-        :iconType="'about'"
-        :text="'关于我'"
-      />
-      <MenuItem
-        :iconType="'project'"
-        :text="'项目&效果'"
-      />
-      <MenuItem
-        :iconType="'message'"
-        :text="'留言板'"
-      />
+      <router-link
+        to="/"
+        exact-active-class="active "
+      >
+        <MenuItem
+          :iconType="'home'"
+          :text="'首页'"
+          class="active"
+        />
+      </router-link>
+      <router-link
+        to="/blog"
+        active-class="active"
+      >
+        <MenuItem
+          :iconType="'blog'"
+          :text="'文章'"
+        />
+      </router-link>
+      <router-link
+        to="/about"
+        exact-active-class="active"
+      >
+        <MenuItem
+          :iconType="'about'"
+          :text="'关于我'"
+        />
+      </router-link>
+      <router-link
+        to="/project"
+        exact-active-class="active"
+      >
+        <MenuItem
+          :iconType="'project'"
+          :text="'项目&效果'"
+        />
+      </router-link>
+      <router-link
+        to="/chat"
+        exact-active-class="active"
+      >
+        <MenuItem
+          :iconType="'message'"
+          :text="'留言板'"
+        />
+      </router-link>
     </div>
     <div class="info">
       <a :href="'https://github.com/1755179168'">
@@ -111,8 +136,11 @@ div.register {
   font-size: 14px;
   color: @words;
 }
-div.menu div.menu-item-container.active {
+div.menu a.active div.menu-item-container {
   background-color: lighten(@dark, 4.7%);
+}
+div.menu-item-container {
+  transition: 0.5s;
 }
 div.menu div.menu-item-container {
   margin: 5px 0;

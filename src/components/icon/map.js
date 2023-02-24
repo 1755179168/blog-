@@ -1,12 +1,11 @@
 export default {
-  wran: "icon-jinggao",
   blog: "icon-blog",
   toTop: "icon-huidaodingbu",
   code: "icon-QA",
   project: "icon-code",
   close: "icon-guanbi",
 
-  zhenque: "icon-zhengque",
+  success: "icon-zhengque",
   email: "icon-email",
   empty: "icon-empty1",
   message: "icon-fl-xinxi",
@@ -18,4 +17,7 @@ export default {
   github: "icon-github1",
   about: "icon-set_about_hov",
   weixin: "icon-weixin",
+  error: "icon-cuowu",
+  warn: "icon-jinggao1",
+  info: "icon-info",
 };

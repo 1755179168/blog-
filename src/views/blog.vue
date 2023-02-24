@@ -1,5 +1,7 @@
 <template>
-  blog
+  <div class="blog-container">
+    blog
+  </div>
 </template>
 
 <script>

@@ -1,6 +1,14 @@
-import { createApp } from "vue";
+import Vue from "vue";
 import App from "./App.vue";
-import router from "./router";
-import store from "./store";
-import "@/style/reset.css/reset.css"; //重置样式表
-createApp(App).use(store).use(router).mount("#app");
+import Router from "vue-router";
+import "@/style/reset.css/reset.css";
+import RouterVue from "./router";
+import hintMessage from "@/utils/hintMessage/index.js";
+
+Vue.prototype.$message = hintMessage;
+Vue.use(Router);
+
+const vm = new Vue({
+  router: RouterVue,
+  render: (h) => h(App),
+}).$mount("#app");

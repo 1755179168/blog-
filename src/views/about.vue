@@ -1,5 +1,7 @@
 <template>
-  about
+  <div class="about-container">
+    about
+  </div>
 </template>
 
 <script>

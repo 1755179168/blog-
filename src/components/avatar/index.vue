@@ -7,6 +7,7 @@
     }"
   >
     <img
+      v-if="imgLoad"
       :src="url"
       alt=""
     >
@@ -15,6 +16,26 @@
 
 <script>
 export default {
+  data() {
+    return {
+      imgLoad: false,
+    };
+  },
+  created() {
+    this.setUrl();
+  },
+  methods: {
+    /**
+     * 预加载
+     */
+    setUrl() {
+      const img = new Image();
+      img.src = this.url;
+      img.onload = () => {
+        this.imgLoad = true;
+      };
+    },
+  },
   props: {
     width_avatar: {
       default: 50,

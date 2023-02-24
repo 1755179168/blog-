@@ -21,12 +21,9 @@ module.exports = {
   devServer: {
     proxy: {
       "/api": {
-        target: "http://47.93.37.77",
+        target: "http://www.abc.com",
+        changeOrigin: true,
       },
-      // "/static" : {
-      //   target: "http://127.0.0.1:7001"
-      // }
     },
   },
-  // configureWebpack: require("./webpack.config"),
 };

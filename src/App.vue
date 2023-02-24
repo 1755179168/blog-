@@ -13,7 +13,6 @@
 <script>
 import Aside from "@/components/Aside/index.vue";
 import Layout from "@/components/Layout";
-console.log(Aside);
 
 export default {
   components: {

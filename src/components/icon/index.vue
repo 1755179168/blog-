@@ -27,5 +27,5 @@ export default {
 .icon-container {
   font-size: inherit;
 }
-@import url("https://at.alicdn.com/t/c/font_2787040_7sv10g559mu.css");
+@import url("https://at.alicdn.com/t/c/font_2787040_a492frb2q1l.css");
 </style>
