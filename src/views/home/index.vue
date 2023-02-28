@@ -160,6 +160,8 @@ export default {
         if (!this.canLoadIndex[a]) return;
         this.$refs.ref[a].style.opacity = "1";
         this.$refs.ref[a].style.width = "100%";
+        this.$refs.title[a].style.opacity = "1";
+        this.$refs.title[a].style.width = "100%";
       },
       immediate: true,
     },
