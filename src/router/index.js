@@ -1,9 +1,9 @@
 import Router from "vue-router";
-import Home from "@/views/home.vue";
-import About from "@/views/about.vue";
-import Blog from "@/views/blog.vue";
-import Chat from "@/views/chat.vue";
-import Project from "@/views/project.vue";
+import Home from "@/views/home/index.vue";
+import About from "@/views/about/index.vue";
+import Blog from "@/views/blog/index.vue";
+import Chat from "@/views/chat/index.vue";
+import Project from "@/views/project/index.vue";
 
 const routes = [
   {

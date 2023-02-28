@@ -18,12 +18,12 @@
 // vue-cli的配置文件
 module.exports = {
   lintOnSave: false,
-  devServer: {
-    proxy: {
-      "/api": {
-        target: "http://www.abc.com",
-        changeOrigin: true,
-      },
-    },
-  },
+  // devServer: {
+  //   proxy: {
+  //     "/api": {
+  //       target: "http://www.abc.com",
+  //       changeOrigin: true,
+  //     },
+  //   },
+  // },
 };

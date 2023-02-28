@@ -11,20 +11,28 @@
       :style="{display: show===false ?'none' : 'block'}"
       @transitionend="imgTransitionEnd"
       :class="{hidden:bigImgLoad}"
-      @load="noBigImgLoad"
       class="noBigImg"
       :src="noBigImgUrl"
       alt=""
+      v-if="imgLoading"
     >
   </div>
 </template>
 
 <script>
 export default {
+  created() {
+    const img = new Image();
+    img.src = this.noBigImgUrl;
+    img.onload = () => {
+      this.imgLoading = true;
+    };
+  },
   data() {
     return {
       bigImgLoad: false,
       show: true,
+      imgLoading: false,
     };
   },
   methods: {
@@ -51,10 +59,12 @@ export default {
 };
 </script>
 
+
 <style scoped lang="less">
 @import "~@/style/mixin/mixin.less";
 .imgLoad-container {
   position: relative;
+  .fill();
   img.hidden {
     opacity: 0;
     transition: 0.5s;
