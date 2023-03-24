@@ -1,4 +1,5 @@
 import Mock from "mockjs";
+//注释
 Mock.mock("/api/banner", "get", function () {
   return {
     code: 0,
