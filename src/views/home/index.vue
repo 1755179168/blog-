@@ -163,17 +163,11 @@ export default {
   watch: {
     index: {
       handler(a, b) {
-<<<<<<< HEAD
-        if (!this.canLoadIndex[a]) return;
-        this.$refs.ref[a].style.opacity = "1";
-        this.$refs.ref[a].style.width = "100%";
-=======
         if (!this.$refs.title) return;
         this.$refs.title[a].ontransitionend = () => {
           this.$refs.ref[a].style.opacity = "1";
           this.$refs.ref[a].style.width = "100%";
         };
->>>>>>> qiu-dev
         this.$refs.title[a].style.opacity = "1";
         this.$refs.title[a].style.width = "100%";
       },
