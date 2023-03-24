@@ -10,6 +10,7 @@
     <img
       :style="{display: show===false ?'none' : 'block'}"
       @transitionend="imgTransitionEnd"
+      @load="noBigImgUrlEnd"
       :class="{hidden:bigImgLoad}"
       class="noBigImg"
       :src="noBigImgUrl"
@@ -39,9 +40,11 @@ export default {
     bigImgLoading() {
       this.bigImgLoad = true;
     },
+    noBigImgUrlEnd() {
+      this.$emit("load");
+    },
     imgTransitionEnd() {
       this.show = false;
-      this.$emit("load");
     },
   },
   props: {

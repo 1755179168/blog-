@@ -2,6 +2,7 @@
   <div
     class="home-container"
     ref="item-container"
+    v-loading='loading'
   >
     <!-- 侧边小圆点 -->
     <div class="dot">
@@ -72,15 +73,15 @@
 import ImgLoad from "@/components/ImgLoad/index.vue";
 import getBanner from "@/api/banner";
 import Icon from "@/components/icon/index.vue";
-import lazyLoad from "@/utils/domCX.js";
 export default {
   mounted() {
     // 全局窗口改变事件
     window.onresize = this.resize;
     // 获取远程数据banner
     getBanner().then((r) => {
+      console.log(r);
+
       this.imgUrl = r;
-      this.canLoadIndex = new Array(this.imgUrl.length).fill(false);
     });
     // 初始化尺寸
     this.size.width = parseInt(
@@ -114,8 +115,8 @@ export default {
       continue: true,
       titleWidth: 0,
       refWidth: 0,
-      canLoadIndex: [],
       width: "0px",
+      loading: true,
     };
   },
   components: {
@@ -123,7 +124,6 @@ export default {
     Icon,
   },
   methods: {
-    lazyLoad,
     handlerEnd() {
       this.continue = true;
     },
@@ -136,9 +136,15 @@ export default {
       };
     },
     canLoad(i) {
-      this.canLoadIndex[i] = true;
-      const arr = this.canLoadIndex;
-      this.canLoadIndex = arr;
+      if (i === 0) {
+        this.loading = false;
+        this.$refs.title[0].ontransitionend = () => {
+          this.$refs.ref[0].style.opacity = "1";
+          this.$refs.ref[0].style.width = "100%";
+        };
+        this.$refs.title[0].style.opacity = "1";
+        this.$refs.title[0].style.width = "100%";
+      }
     },
     handlerRoll(e) {
       if (!this.continue) return;
@@ -157,9 +163,13 @@ export default {
   watch: {
     index: {
       handler(a, b) {
-        if (!this.canLoadIndex[a]) return;
-        this.$refs.ref[a].style.opacity = "1";
-        this.$refs.ref[a].style.width = "100%";
+        if (!this.$refs.title) return;
+        this.$refs.title[a].ontransitionend = () => {
+          this.$refs.ref[a].style.opacity = "1";
+          this.$refs.ref[a].style.width = "100%";
+        };
+        this.$refs.title[a].style.opacity = "1";
+        this.$refs.title[a].style.width = "100%";
       },
       immediate: true,
     },
@@ -174,8 +184,7 @@ export default {
 @import "./description.less";
 @import "~@/style/mixin/mixin.less";
 .home-container {
-  width: 100%;
-  height: 100%;
+  .fill();
 }
 div.wrapper {
   transition: 0.5s;
@@ -247,5 +256,6 @@ div.arrow-up {
 }
 div.img-item {
   position: relative;
+  transform: scale(1.1, 1.1);
 }
 </style>
