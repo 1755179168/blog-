@@ -1,0 +1,39 @@
+@import "~@/style/var.less";
+@import "~@/style/mixin/mixin.less";
+.message-container{
+    width:220px;
+    height:45px;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    .self-center();
+    line-height: 45px;
+    & i{
+        font-size: 30px !important; 
+        padding:0 10px 0 10px;
+    }
+}
+.message-container-success{
+    background-color: @success;
+    color: lighten(@success,40%);
+}
+.message-container-warn{
+    background-color: @warn;
+    color: lighten(@warn,40%);
+
+}
+.message-container-error{
+    background-color: @danger;
+    color: lighten(@danger,40%);
+
+}
+.message-container-info{
+    background-color: @lightWords;
+    color: lighten(@lightWords,40%);
+
+}
+.text{
+    flex:1 1 auto;
+    text-align: center;
+    font-size: 18px;
+}

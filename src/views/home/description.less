@@ -1,0 +1,48 @@
+@import "~@/style/var.less";
+
+div.centece {
+    position: absolute;
+    top: 35%;
+    margin-left: 100px;
+
+    div.d {
+        padding-left: 50px;
+        margin-top: 35px;
+    }
+
+    font-size: 30px;
+    white-space:nowrap;
+    flex-direction: column;
+    color: @Hword;
+    font-weight: 1000;
+    flex-wrap: wrap;
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+
+    div {
+        box-sizing: border-box;
+        max-width: calc(100% - 100px);
+        width: fit-content;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        letter-spacing: .3em;
+        flex: 0 0 auto;
+        position: relative;
+        text-shadow: -2px -3px 1px rgb(43, 41, 41);
+        opacity: 0;
+        transition: width 1.3s;
+
+
+    }
+
+    .abc {
+        width: 100%;
+        opacity: 1;
+    }
+
+    .none {
+        width: 0px;
+        opacity: 0;
+    }
+}
