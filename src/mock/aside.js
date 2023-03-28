@@ -1,7 +1,16 @@
 import Mock from "mockjs";
-Mock.mock("/api/getUserInfo", "post", function () {
+import avatar from "../assets/banner/big1.jpg";
+Mock.mock("/api/userInfo", "get", function () {
   return {
-    code: 200,
+    code: 0,
     chat: "",
+    data: {
+      avatar: avatar,
+      nickname: "gudua",
+      email: "1755179168@qq.com",
+      weixin: "18280632051",
+      github: "https://github.com/1755179168",
+      qq: "511461653534",
+    },
   };
 });

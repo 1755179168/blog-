@@ -1,7 +1,7 @@
 <template>
   <div class="aside-container">
     <Avatar
-      :url="'http://47.93.37.77/asset_test/big1.jpg'"
+      :url="userInfo.avatar"
       :width_avatar="200"
       :height_avatar="200"
     />
@@ -58,27 +58,27 @@
       </router-link>
     </div>
     <div class="info">
-      <a :href="'https://github.com/1755179168'">
+      <a :href="userInfo.github">
         <MenuItem
           :iconType="'github'"
           :text="'bangbangji-Edu'"
         />
       </a>
-      <a :href="'mailto:'+'132123@qq.com'">
+      <a :href="'mailto:'+userInfo.email">
         <MenuItem
           :iconType="'email'"
-          :text="'1755179168@qq.com'"
+          :text="userInfo.email"
         />
       </a>
-      <a :href="'tencent://message/?uni='+'123123123'">
+      <a :href="'tencent://message/?uni='+userInfo.qq">
         <MenuItem
           :iconType="'qq'"
-          :text="'1755179168'"
+          :text="userInfo.qq"
         />
       </a>
       <MenuItem
         :iconType="'weixin'"
-        :text="'18280632051'"
+        :text="userInfo.weixin"
       />
     </div>
     <div class="register">
@@ -90,10 +90,21 @@
 <script>
 import Avatar from "@/components/avatar/index.vue";
 import MenuItem from "@/components/MenuItem/index.vue";
+import userInfo from "@/api/userInfo.js";
 export default {
   components: {
     Avatar,
     MenuItem,
+  },
+  created() {
+    userInfo().then((r) => {
+      this.userInfo = r;
+    });
+  },
+  data() {
+    return {
+      userInfo,
+    };
   },
 };
 </script>
