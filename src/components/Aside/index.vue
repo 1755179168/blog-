@@ -1,10 +1,13 @@
 <template>
   <div class="aside-container">
-    <Avatar
-      :url="userInfo.avatar"
-      :width_avatar="200"
-      :height_avatar="200"
-    />
+    <div class="avatar">
+      <Avatar
+        v-if="userInfo.avatar"
+        :url="userInfo.avatar"
+        :width_avatar="200"
+        :height_avatar="200"
+      />
+    </div>
 
     <!-- >  -->
 
@@ -103,7 +106,7 @@ export default {
   },
   data() {
     return {
-      userInfo,
+      userInfo: {},
     };
   },
 };
@@ -118,6 +121,10 @@ export default {
   flex-direction: column;
   background-color: @dark;
   align-items: center;
+}
+div.avatar {
+  width: 200px;
+  height: 200px;
 }
 .nickname {
   color: @Hword;

@@ -42,6 +42,7 @@
       <div
         ref="img-item"
         class="img-item"
+        @mousemove="handlerMove"
         :style="{ width: size.width + 'px', height: size.height + 'px' }"
         v-for="(prop, i) in imgUrl"
       >
@@ -79,8 +80,6 @@ export default {
     window.onresize = this.resize;
     // 获取远程数据banner
     getBanner().then((r) => {
-      console.log(r);
-
       this.imgUrl = r;
     });
     // 初始化尺寸
@@ -124,6 +123,7 @@ export default {
     Icon,
   },
   methods: {
+    handlerMove(e) {},
     handlerEnd() {
       this.continue = true;
     },
@@ -256,6 +256,11 @@ div.arrow-up {
 }
 div.img-item {
   position: relative;
-  transform: scale(1.1, 1.1);
+  overflow: hidden;
+  div {
+    width: 110%;
+    height: 110%;
+    position: absolute;
+  }
 }
 </style>
