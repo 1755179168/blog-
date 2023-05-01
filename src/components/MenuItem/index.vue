@@ -1,6 +1,9 @@
 <template>
   <div class="menu-item-container">
-    <Icon :type="iconType" /> <span class="text">{{text}}</span>
+    <Icon :type="iconType" /> <span
+      :title="text"
+      class="text"
+    >{{text}}</span>
   </div>
 </template>
 
@@ -36,9 +39,9 @@ export default {
   display: flex;
   color: rgb(217, 212, 212);
   box-sizing: border-box;
-  padding-left: 80px;
   cursor: pointer;
   width: 100%;
+  padding-left: 50px;
 }
 span {
   margin-left: 10px;
