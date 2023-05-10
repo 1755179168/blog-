@@ -1,17 +1,13 @@
 <template>
   <div class="aside-container">
-    <div class="avatar">
-      <Avatar
-        v-if="userInfo.avatar"
-        :url="userInfo.avatar"
-        :width_avatar="200"
-        :height_avatar="200"
-      />
-    </div>
+    <Avatar
+      :url="userInfo.avatar"
+      :size="200"
+    />
 
     <!-- >  -->
 
-    <h2 class="nickname">abdsfsdaf</h2>
+    <h2 class="nickname">{{userInfo.nickname}}</h2>
     <div class="menu">
       <router-link
         to="/"
@@ -115,7 +111,7 @@ export default {
 <style scoped lang="less">
 @import "~@/style/var.less";
 .aside-container {
-  width: 100%;
+  width: 230px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -140,7 +136,7 @@ div.avatar-container {
 }
 div.info {
   width: 100%;
-  margin: 30px 0;
+  margin: 30px 0 30px -18px;
 }
 div.info div.menu-item-container {
   padding-left: 20px;

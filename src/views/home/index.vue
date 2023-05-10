@@ -2,27 +2,27 @@
   <div
     class="home-container"
     ref="item-container"
-    v-loading='loading'
+    v-loading="loading"
   >
     <!-- 侧边小圆点 -->
     <div class="dot">
       <div
-        v-for="(prop,i) in imgUrl"
+        v-for="(prop, i) in fetchData"
         :key="i"
-        :class="{active:i===index}"
+        :class="{ active: i === index }"
       ></div>
     </div>
     <!-- 上下指引箭头图标 -->
     <div
       class="arrow-down"
-      v-show="index<imgUrl.length-1"
+      v-show="index < fetchData.length - 1"
     >
       <Icon :type="'arrowDown'" />
     </div>
     <!-- 上下指引箭头图标 -->
     <div
       class="arrow-up"
-      v-show="index>0"
+      v-show="index > 0"
     >
       <Icon :type="'arrowUp'" />
     </div>
@@ -34,18 +34,27 @@
       @transitionend="handlerEnd"
       @mousewheel="handlerRoll"
       :style="{
-        height: imgUrl.length * size.height + 'px',
+        height: fetchData.length * size.height + 'px',
         marginTop: index * -size.height + 'px',
       }"
     >
-
       <div
         ref="img-item"
         class="img-item"
         @mousemove="handlerMove"
+        <<<<<<<
+        HEAD
         :style="{ width: size.width + 'px', height: size.height + 'px' }"
-        v-for="(prop, i) in imgUrl"
-      >
+        v-for="(prop, i) in imgUrl"=======:style="{
+          width: size.width + 'px',
+          height: size.height + 'px',
+          left: left + 'px',
+          zIndex: index === i ? 1000 : -1,
+          top: i * size.height + top + 'px', // 垂直对齐，居中显示。 (0.1 / 2 = 0.5) / 2 = 0.5 / 1 = 0
+        }"
+        v-for="(prop, i) in fetchData"
+      >>>>>>> qiu-dev
+        >
         <img-load
           @load="canLoad(i)"
           :bigImgUrl="prop.bigImg"
@@ -56,13 +65,13 @@
             class="title"
             ref="title"
           >
-            {{prop.title}}
+            {{ prop.title }}
           </div>
           <div
             class="d"
             ref="ref"
           >
-            {{prop.description}}
+            {{ prop.description }}
           </div>
         </div>
       </div>
@@ -74,13 +83,20 @@
 import ImgLoad from "@/components/ImgLoad/index.vue";
 import getBanner from "@/api/banner";
 import Icon from "@/components/icon/index.vue";
+import mixins from "@/mixins/mixins.js";
 export default {
+  computed: {
+    position() {
+      this.left = (this.size.width * 0.1) / 2;
+      this.top = (this.size.height * 0.1) / 2;
+    },
+  },
   mounted() {
     // 全局窗口改变事件
     window.onresize = this.resize;
     // 获取远程数据banner
     getBanner().then((r) => {
-      this.imgUrl = r;
+      this.fetchData = r;
     });
     // 初始化尺寸
     this.size.width = parseInt(
@@ -89,15 +105,17 @@ export default {
     this.size.height = parseInt(
       getComputedStyle(this.$refs["item-container"]).height
     );
+    this.currentLeft = (this.size.width * 0.1) / 2;
+    this.currentTop = (this.size.height * 0.1) / 2; // 设置游戏区域中心点的位置 （
   },
   updated() {
-    if (this.imgUrl.length) {
+    if (this.fetchData.length) {
       //获取滚动句子的宽度
       this.titleWidth = parseFloat(
         getComputedStyle(this.$refs["title"][0]).width
       );
       this.refWidth = parseFloat(getComputedStyle(this.$refs["ref"][0]).width);
-      this.imgUrl.forEach((item, i) => {
+      this.fetchData.forEach((item, i) => {
         this.$refs.title[i].classList.add("none");
         this.$refs.ref[i].classList.add("none");
       });
@@ -109,21 +127,58 @@ export default {
         width: "",
         height: "",
       },
-      imgUrl: [], //请求改这里
       index: 0,
       continue: true,
       titleWidth: 0,
       refWidth: 0,
       width: "0px",
-      loading: true,
+      left: 0,
+      top: 0,
+      currentLeft: 0,
+      currentTop: 0,
     };
   },
+  mixins: [mixins([])],
   components: {
     ImgLoad,
     Icon,
   },
   methods: {
-    handlerMove(e) {},
+    handlerMove(e) {
+      // console.log(e.movementX, e.movementY);
+      // if (Math.abs(this.top + e.movementY) >= this.currentTop) {
+      //   if (e.movementY > 0) {
+      //     this.top = this.currentTop;
+      //   } else {
+      //     this.top = -this.currentTop;
+      //   }
+      // } else {
+      // }
+      // this.top = this.top + e.movementY; //移动距离 顶部的距离 下移动距离 上移
+      // this.left = this.left + e.movementX; //移动距离 左上角的距离
+      if (e.movementY >= 0) {
+        if (this.top + 1 >= this.currentTop) {
+          this.top = this.currentTop;
+        }
+        this.top = this.top + 1; //移动距离 顶部的距离 下移动距离 上移
+      } else {
+        if (this.top - 1 <= -this.currentTop) {
+          this.top = -this.currentTop;
+        }
+        this.top = this.top - 1; //移动距离 顶部的距离 下移动距离 上移
+      }
+      if (e.movementX >= 0) {
+        if (this.left + 1 >= this.currentLeft) {
+          this.left = this.currentLeft;
+        }
+        this.left = this.left + 1; //移动距离 顶部的距离 下移动距离 上移
+      } else {
+        if (this.left - 1 <= -this.currentLeft) {
+          this.left = -this.currentLeft;
+        }
+        this.left = this.left - 1; //移动距离 顶部的距离 下移动距离 上移
+      }
+    },
     handlerEnd() {
       this.continue = true;
     },
@@ -148,11 +203,11 @@ export default {
     },
     handlerRoll(e) {
       if (!this.continue) return;
-      if (e.deltaY > 0 && this.index + 1 < this.imgUrl.length) {
+      if (e.deltaY > 0 && this.index + 1 < this.fetchData.length) {
         this.continue = false;
         this.index =
-          this.index + 1 >= this.imgUrl.length - 1
-            ? this.imgUrl.length - 1
+          this.index + 1 >= this.fetchData.length - 1
+            ? this.fetchData.length - 1
             : this.index + 1;
       } else if (e.deltaY < 0 && this.index - 1 >= 0) {
         this.continue = false;
@@ -189,6 +244,7 @@ export default {
 div.wrapper {
   transition: 0.5s;
   transition-timing-function: cubic-bezier(0, 0.88, 0.55, 0.9);
+  // overflow: hidden;
 }
 div.dot {
   position: absolute;
@@ -215,6 +271,8 @@ div.dot div.active {
 }
 div.home-container {
   position: relative;
+  width: 100%;
+  height: 100%;
 }
 div.arrow-down,
 div.arrow-up {
@@ -255,12 +313,10 @@ div.arrow-up {
   }
 }
 div.img-item {
-  position: relative;
-  overflow: hidden;
-  div {
-    width: 110%;
-    height: 110%;
-    position: absolute;
-  }
+  position: absolute;
+  transform: scale(1.1, 1.1);
+}
+div.centece {
+  transform: scale(0.9, 0.9);
 }
 </style>
