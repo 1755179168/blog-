@@ -5,7 +5,14 @@
 </template>
 
 <script>
-export default {};
+import getBlog from "@/api/blog";
+export default {
+  created() {
+    getBlog().then((r) => {
+      console.log(r);
+    });
+  },
+};
 </script>
 
 <style>

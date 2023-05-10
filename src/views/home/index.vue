@@ -42,24 +42,19 @@
         ref="img-item"
         class="img-item"
         @mousemove="handlerMove"
-        <<<<<<<
-        HEAD
-        :style="{ width: size.width + 'px', height: size.height + 'px' }"
-        v-for="(prop, i) in imgUrl"=======:style="{
+        v-for="(prop, i) in fetchData"
+        :style="{
           width: size.width + 'px',
           height: size.height + 'px',
           left: left + 'px',
           zIndex: index === i ? 1000 : -1,
           top: i * size.height + top + 'px', // 垂直对齐，居中显示。 (0.1 / 2 = 0.5) / 2 = 0.5 / 1 = 0
         }"
-        v-for="(prop, i) in fetchData"
-      >>>>>>> qiu-dev
-        >
         <img-load
-          @load="canLoad(i)"
-          :bigImgUrl="prop.bigImg"
-          :noBigImgUrl="prop.noBigImg"
-        ></img-load>
+        @load="canLoad(i)"
+        :bigImgUrl="prop.bigImg"
+        :noBigImgUrl="prop.noBigImg"
+      ></img-load>
         <div class="centece">
           <div
             class="title"
@@ -76,6 +71,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
 </template>
 
@@ -136,6 +132,7 @@ export default {
       top: 0,
       currentLeft: 0,
       currentTop: 0,
+      fetchData: [], // 数据列表描述 （可以是数组或列表等） （数据来源
     };
   },
   mixins: [mixins([])],
