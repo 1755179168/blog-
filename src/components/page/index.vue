@@ -7,7 +7,7 @@
     <span class="home">首页</span>
     <span class="pre">上一页</span>
     <span
-      :class="{active:prop=== this.currentPage}"
+      :class="{active:prop=== currentPage}"
       class="prop"
       v-for="(prop,i) in pageItem"
       :key="i"
@@ -44,8 +44,9 @@ export default {
         } else {
           changePage = Number(newPage);
         }
-        this.$emit("pageChange", changePage);
-        console.log(changePage);
+        this.currentPage !== changePage
+          ? this.$emit("pageChange", changePage)
+          : "";
       }
     },
   },
