@@ -17,6 +17,10 @@ Mock.mock(reg, "get", function (option) {
         pageView: Mock.Random.natural(1, 1000), // 发布次数或阅读次数的整数随机数，也称为页
         comment: Mock.Random.natural(1, 300),
         blogType: Mock.Random.natural(1, 10),
+        blogUuid: Mock.Random.uuid(), // 文章的唯一标识符，一般为 UUID v4 生成器中的值
+        classify:
+          param.category === -1 ? Mock.Random.natural(1, 10) : param.category,
+        date: Mock.Random.date("T"),
         img:
           Math.random() > 0.2
             ? Mock.Random.image("260x180", "#ffc0cb", "#f40", "image").replace(

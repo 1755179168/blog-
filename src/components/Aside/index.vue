@@ -20,7 +20,8 @@
         />
       </router-link>
       <router-link
-        to="/blog"
+        :to="{name:'blog'
+       }"
         active-class="active"
       >
         <MenuItem

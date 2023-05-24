@@ -1,4 +1,5 @@
 <template>
+
   <div class="blog-list-container">
     <div
       class="title"
@@ -10,6 +11,8 @@
     <div class="list-prop">
       <ul>
         <li
+          :data-category="prop.sub"
+          @click="handlerClickCategory(prop.title,prop.sub)"
           class="prop"
           v-for="(prop,index) in listData.list"
           :class="{ selected: index === currentIndex }"
@@ -28,6 +31,11 @@
 
 <script>
 export default {
+  methods: {
+    handlerClickCategory(title, sub) {
+      this.$emit("categoryClick", title, sub);
+    },
+  },
   name: "List", // <--- class name for this element.  probably a bad idea.  use a different name for this component.  probably not
   props: {
     listData: {
@@ -65,6 +73,6 @@ div.list-prop ul li span {
   font-size: 22px;
 }
 div.blog-list-container div.blog-list-container {
-  padding-left: 20px;
+  padding-left: 30px;
 }
 </style>

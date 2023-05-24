@@ -1,10 +1,19 @@
 <template>
-  <div class="article-container">
-    <img
+
+  <div
+    class="article-container"
+    @click="hqId(artData.blogUuid)"
+  >
+
+    <div
+      class="img"
       v-if="artData.img"
-      :src="artData.img"
-      alt=""
     >
+      <img
+        :src="artData.img"
+        alt=""
+      >
+    </div>
     <div class="text">
       <a
         href="#"
@@ -57,7 +66,11 @@ export default {
     return {};
   },
   computed: {},
-  methods: {},
+  methods: {
+    hqId(id) {
+      this.$emit("fetchBlog", id);
+    },
+  },
   components: {},
 };
 </script>
@@ -74,11 +87,17 @@ div.article-container div.text a:hover {
   box-sizing: border-box; //padding, border, margin不会影响布局，只是显示不着。这些是页面
   margin: 20px 20px 0 80px;
   padding-bottom: 18px;
-  img {
+  div.img {
     width: 260px;
     height: 180px;
     border-radius: 8px;
     margin-right: 15px;
+    overflow: hidden;
+    flex: 0 0 auto;
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 div.text {

@@ -1,12 +1,13 @@
 import url from "@/assets/loading.gif";
 export default function () {
   return {
-    bind(el) {
+    bind(el, binding) {
+      const pos = binding.arg || "absolute";
       const img = document.createElement("img");
       img.src = url;
       img.height = "200";
       img.width = "200";
-      img.style.position = "absolute";
+      img.style.position = pos;
       img.style.left = "50%";
       img.style.top = "50%";
       img.style.transform = "translate(-50%,-50%)";
