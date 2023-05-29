@@ -18,7 +18,8 @@
           :class="{ selected: index === currentIndex }"
           :key="index"
         >
-          <span class="blog">{{ prop.title }}</span><span class="sub">{{ prop.sub }}</span>
+          <span class="blog"><a :href="prop.anchor?('#'+prop.anchor):''">{{ prop.title }}</a></span>
+          <span class="sub">{{ prop.sub }}</span>
           <List
             v-if="prop.children"
             :listData="prop.children"
