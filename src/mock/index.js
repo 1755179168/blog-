@@ -2,6 +2,7 @@ import Mock from "mockjs";
 import "./banner";
 import "./article";
 import "./aside";
+import "./message";
 import "./blogList";
 import "./fetchBlog";
 Mock.setup({

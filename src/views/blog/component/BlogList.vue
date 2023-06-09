@@ -1,5 +1,4 @@
 <template>
-
   <div class="blog-list-container">
     <div
       class="title"
@@ -18,11 +17,15 @@
           :class="{ selected: index === currentIndex }"
           :key="index"
         >
-          <span class="blog"><a :href="prop.anchor?('#'+prop.anchor):''">{{ prop.title }}</a></span>
+          <span
+            class="blog"
+            @click="clickForToc(index)"
+          ><a :href="prop.anchor?('#'+prop.anchor):''">{{ prop.title }}</a></span>
           <span class="sub">{{ prop.sub }}</span>
           <List
             v-if="prop.children"
             :listData="prop.children"
+            @clickForToc="clickForToc"
           />
         </li>
       </ul>
@@ -36,6 +39,9 @@ export default {
     handlerClickCategory(title, sub) {
       this.$emit("categoryClick", title, sub);
     },
+    clickForToc(index) {
+      this.$emit("clickForToc", { index });
+    }, // <-- this is the only way to
   },
   name: "List", // <--- class name for this element.  probably a bad idea.  use a different name for this component.  probably not
   props: {

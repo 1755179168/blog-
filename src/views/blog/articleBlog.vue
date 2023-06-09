@@ -8,6 +8,7 @@
         <div class="bloglist"><blog-list
             :listData="{list:article.toc,title:''}"
             :currentIndex="currentIndex"
+            @clickForToc="clickForToc"
           ></blog-list></div>
       </template>
       <template>
@@ -25,6 +26,8 @@
             >
             </div>
           </div>
+          <Bord @submit="submit" />
+          <Chat :chatList="chatList" />
         </div>
       </template>
     </Layout>
@@ -34,13 +37,34 @@
 import Layout from "@/components/Layout/index.vue";
 import BlogList from "./component/BlogList.vue";
 import fetchBlog from "@/api/fetchBlogForId";
-import debouce from "@/utils/";
+import { debounce } from "@/utils/debounce";
+import Message from "@/components/Message/index.vue";
+import { postMessage } from "@/api/message";
+import { getMessage } from "@/api/message";
+import Chat from "@/views/blog/message.vue";
 export default {
+  methods: {
+    async submit(info, callback) {
+      const data = await postMessage(info);
+      callback();
+      this.$message(data.chat, "success");
+    },
+    clickForToc(index) {
+      console.log(index);
+    },
+  },
   components: {
     Layout,
     BlogList,
+    Bord: Message,
+    Chat,
   }, //attach the layout to the root element. 	It's a Vue component. 		It's
   async created() {
+    getMessage().then((r) => {
+      console.log(r);
+
+      this.chatList = r;
+    });
     const data = await fetchBlog("id");
     this.article = data;
   },
@@ -48,12 +72,34 @@ export default {
     return {
       article: {},
       currentIndex: 0,
+      chatList: [],
     };
   },
   updated() {
-    this.$refs["main"].addEventListener("scroll", () => {
-      console.log(111);
-    });
+    const elements = Array.from(
+      document.querySelectorAll('[id^="article-md-title-"]')
+    );
+    this.$refs["main"].addEventListener(
+      "scroll",
+      debounce(() => {
+        const temporary = [];
+        elements.forEach((ele, index, va) => {
+          const rect = ele.getBoundingClientRect(); //获取元素的位置信息，包括边界检测和元素自身的位置检测。
+          if (rect.top < 200) {
+            temporary.push({ ele, index });
+          }
+        });
+        if (elements[temporary.length]) {
+          if (elements[temporary.length].getBoundingClientRect().top < 200) {
+            this.currentIndex = temporary.length; //如果滚动条到了顶部，则将currentIndex设置为元素数量-1。 		然后如果没有元素在滚动条上，则将currentIndex设置为0。
+          } else {
+            this.currentIndex = temporary.length - 1;
+          }
+        } else {
+          this.currentIndex = elements.length - 1;
+        }
+      }, 100)
+    );
     const h1 = document.querySelectorAll('h1[id^="article-md-title-"]');
     const h2 = document.querySelectorAll('h2[id^="article-md-title-"]');
     [...h1, ...h2].forEach((ele) => {
@@ -96,5 +142,11 @@ export default {
       font-size: 20px;
     }
   }
+}
+div.content {
+  padding-bottom: 30px;
+}
+.bord-container {
+  padding: 20px 0;
 }
 </style>
