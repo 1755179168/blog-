@@ -7,17 +7,18 @@ Mock.mock("/api/message", "post", function (option) {
     data: {
       chat: "提交成功！",
       date: new Date("T"),
-      userChat: { ...JSON.parse(option.body) },
-      avatar: Mock.Random.pick([
+      ...JSON.parse(option.body),
+      url: Mock.Random.pick([
         Mock.Random.image("260x180", "#ffc0cb", "#f40", "image"),
         Mock.Random.image("260x180", "#ffe0cb", "#f40", "image2"),
         Mock.Random.image("260x180", "#ffg0cb", "#f40", "image3"),
         Mock.Random.image("260x180", "#ffa0cb", "#f40", "image4"),
       ]),
+      praise: 0,
     },
   };
 });
-const reg = /^\/api\/message\?(.+)$/g;
+const reg = /^\/api\/message\?(.+)$/;
 Mock.mock(reg, "get", function (option) {
   return {
     code: 0,

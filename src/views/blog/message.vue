@@ -20,6 +20,7 @@
         <div class="userText">{{prop.text}}</div>
       </div>
     </div>
+    <!-- <V /> -->
   </div>
 </template>
 

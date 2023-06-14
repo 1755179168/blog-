@@ -1,5 +1,6 @@
 <template>
   <Layout>
+    <div class="toTop"></div>
     <template v-slot:left>
       <Aside />
     </template>
@@ -23,4 +24,10 @@ export default {
 </script>
 
 <style scoped>
+div.layout-container {
+  position: relative;
+}
+div.toTop {
+  /* position: fix; */
+}
 </style>

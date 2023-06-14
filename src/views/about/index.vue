@@ -1,6 +1,11 @@
 <template>
   <div class="about-container">
-    about
+    <iframe
+      src="https://www.taobao.com/"
+      frameborder="0"
+      width="100%"
+      height="100%"
+    ></iframe>
   </div>
 </template>
 
@@ -8,5 +13,9 @@
 export default {};
 </script>
 
-<style>
+<style scoped>
+div.about-container {
+  width: 100%;
+  height: 100%;
+}
 </style>

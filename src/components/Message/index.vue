@@ -60,12 +60,15 @@ export default {
   created() {},
   methods: {
     async submit() {
+      if (this.nickNameCount.text === "" || this.contentCount.text === "")
+        //内容
+        return;
       this.isClick = true; //这里显示提交按钮的点击事件，不要忘记在给出的参数中
       this.$emit(
         "submit",
         {
           nickName: this.nickNameCount.text, //这里面的参数应该是自然数或数组或字符串形式的数组，如果不能被Python解释并将其用代码解释，可以将其用数字或字符串形式。 不要使用MDN的文本数据类型中的字符串参数，否则会导致它们被转换为字符串类型。 不要使用“=”符号，否则会导致“=”出现
-          content: this.contentCount.text, //这里面的参数应该是自然数或数组或字符串形式的数组
+          text: this.contentCount.text,
           date: Date.now(), //这里面的参数应该是一个整数或形式的字符串，记住这个参数是在提交日期时显示的。不要使用MDN的文本数据类型中的整数参数，
         },
         () => {
@@ -73,7 +76,7 @@ export default {
           this.nickNameCount = {
             count: 0,
             text: "",
-          }; //这里面的变量应该是一个整数，表示提交成功的次
+          };
           this.contentCount = {
             count: 0,
             text: "",
