@@ -21,7 +21,7 @@
             <div class="page-vivew">
             </div>
             <div
-              class="content"
+              class="content markdown-body"
               v-html="article.htmlContent"
             >
             </div>
@@ -47,6 +47,7 @@ import Message from "@/components/Message/index.vue";
 import { postMessage } from "@/api/message";
 import { getMessage } from "@/api/message";
 import Chat from "@/views/blog/message.vue";
+import Event from "@/event";
 export default {
   methods: {
     async submit(info, callback) {
@@ -59,42 +60,40 @@ export default {
       const elements = Array.from(
         document.querySelectorAll('[id^="article-md-title-"]')
       );
-      this.$refs["main"].addEventListener(
-        "scroll",
-        debounce(() => {
-          let elementHeight = this.$refs["main"].scrollHeight;
-          let elementClientHeight = this.$refs["main"].clientHeight;
-          let elementTop = this.$refs["main"].scrollTop;
-          if (
-            elementHeight - elementTop - elementClientHeight < 10 &&
-            !this.loading
-          ) {
-            this.loading = true;
-            getMessage(Math.floor(this.chatList.length / 10 + 1), 10).then(
-              (res) => {
-                this.chatList = [...this.chatList, ...res];
-                this.loading = false;
-              }
-            );
+      const scrollDebounce = debounce(() => {
+        let elementHeight = this.$refs["main"].scrollHeight;
+        let elementClientHeight = this.$refs["main"].clientHeight;
+        let elementTop = this.$refs["main"].scrollTop;
+        if (
+          elementHeight - elementTop - elementClientHeight < 10 &&
+          !this.loading
+        ) {
+          this.loading = true;
+          getMessage(Math.floor(this.chatList.length / 10 + 1), 10).then(
+            (res) => {
+              this.chatList = [...this.chatList, ...res];
+              this.loading = false;
+            }
+          );
+        }
+        const temporary = [];
+        elements.forEach((ele, index, va) => {
+          const rect = ele.getBoundingClientRect(); //获取元素的位置信息，包括边界检测和元素自身的位置检测。
+          if (rect.top < 200) {
+            temporary.push({ ele, index });
           }
-          const temporary = [];
-          elements.forEach((ele, index, va) => {
-            const rect = ele.getBoundingClientRect(); //获取元素的位置信息，包括边界检测和元素自身的位置检测。
-            if (rect.top < 200) {
-              temporary.push({ ele, index });
-            }
-          });
-          if (elements[temporary.length]) {
-            if (elements[temporary.length].getBoundingClientRect().top < 200) {
-              this.currentIndex = temporary.length; //如果滚动条到了顶部，则将currentIndex设置为元素数量-1。 		然后如果没有元素在滚动条上，则将currentIndex设置为0。
-            } else {
-              this.currentIndex = temporary.length - 1;
-            }
+        });
+        if (elements[temporary.length]) {
+          if (elements[temporary.length].getBoundingClientRect().top < 200) {
+            this.currentIndex = temporary.length; //如果滚动条到了顶部，则将currentIndex设置为元素数量-1。 		然后如果没有元素在滚动条上，则将currentIndex设置为0。
           } else {
-            this.currentIndex = elements.length - 1;
+            this.currentIndex = temporary.length - 1;
           }
-        }, 100)
-      );
+        } else {
+          this.currentIndex = elements.length - 1;
+        }
+      }, 100);
+      this.$refs["main"].addEventListener("scroll", scrollDebounce);
       const h1 = document.querySelectorAll('h1[id^="article-md-title-"]');
       const h2 = document.querySelectorAll('h2[id^="article-md-title-"]');
       [...h1, ...h2].forEach((ele) => {
@@ -137,6 +136,8 @@ export default {
 
 <style lang="less" scoped>
 @import url("~@/style/mixin/mixin.less");
+@import "./../../github-markdown-css-main/github-markdown-light.css";
+@import "highlight.js/styles/github.css";
 .article-blog-container {
   .fill();
   box-sizing: border-box;

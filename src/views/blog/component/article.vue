@@ -1,5 +1,4 @@
 <template>
-
   <div
     class="article-container"
     @click="hqId(artData.blogUuid)"

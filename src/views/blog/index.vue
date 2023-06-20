@@ -4,7 +4,7 @@
       <template>
         <div
           class="wrapper"
-          ref="wrapper"
+          ref="blogContainer"
         >
           <div
             v-if="artData.total"
@@ -18,6 +18,8 @@
               :data-uuid="prop.blogUuid"
               :key="i"
               @fetchBlog="fetchBlog"
+              v-lazy="$refs['wrapper']"
+              ref="wrapper"
             />
           </div>
           <Empty
@@ -48,6 +50,7 @@
 
 <script>
 import getBlog from "@/api/blog"; // importar el nombre del módulo a utilizar, el cual es el que se pone en el at
+import Event from "@/event";
 import Article from "@/views/blog/component/article.vue";
 import Page from "@/components/page/index.vue";
 import Layout from "@/components/Layout/index.vue";
@@ -102,7 +105,9 @@ export default {
       );
       this.artData = data;
       this.underway = false; //Fin de la peticiosa a la api, data es un objeto. data.data es un objeto. data.data
-      this.$refs.wrapper.scrollTop = 0; //将页面滚动到顶部的条目滚动到最顶部。
+    },
+    wrapperScroll() {
+      Event.$emit("wrapperScroll", this.$refs.blogContainer);
     },
     handlerClickCategory(title, sub) {
       const categoryId = (title + sub).match(/\d+/g);
@@ -137,6 +142,9 @@ export default {
 
   //   }
   // }
+  mounted() {
+    this.$refs["blogContainer"].addEventListener("scroll", this.wrapperScroll);
+  },
 };
 </script>
 
